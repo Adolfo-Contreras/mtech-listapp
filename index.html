@@ -1,27 +1,38 @@
 <!--npx tailwindcss -i \app.src.css -o \app.css -w-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full w-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
-    <link rel="stylesheet" href="styles.css"> <!-- You can link your stylesheet here -->
+    <script src="https://kit.fontawesome.com/5d38fb97c4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="app.css"> <!-- You can link your stylesheet here -->
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo"></div>
-            <nav></nav>
+<body class="w-full h-screen m-0">
+    <div class="w-full h-full flex flex-col">
+        <header class="h-[5%] bg-black/80">
+            <nav class="h-full">
+                <ul class="h-full pr-2 flex justify-end items-center gap-4">
+                    <li class="">
+                        <button><span class="fa-solid fa-circle-user text-xl text-white/60"></span></button>
+                    </li>
+                    <li class=""><button><span class="fa-solid fa-gear text-xl text-white/60"></span></button></li>
+                </ul>
+            </nav>
+            <nav class="collapse"></nav>
         </header>
-        <main>
-            <section class="sidebar"><!-- Sidebar -->
-                <div>
-                    <input type="text">
+
+        <main class="flex h-full">
+            <section class="border border-white/10 bg-white/30 h-full"><!-- Sidebar -->
+                <div class="h-[2.5%]">
+                    <input class="h-full" type="text" name="" id="listTitle" placeholder="Enter list Title">
                 </div>
-                <div></div>
+                <div>
+                    <button class="w-full">List</button>
+                </div>
             </section>
 
-            <section class="main-content"><!-- Main content -->
+            <section class=""><!-- Main content -->
             </section>
         </main>
     </div>
