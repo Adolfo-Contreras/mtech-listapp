@@ -10,6 +10,7 @@
 </head>
 <body class="w-full h-screen m-0">
     <div class="w-full h-full flex flex-col">
+
         <header class="h-[5%] bg-black/80">
             <nav class="h-full">
                 <ul class="h-full pr-2 flex justify-end items-center gap-4">
@@ -22,17 +23,33 @@
             <nav class="collapse"></nav>
         </header>
 
-        <main class="flex h-full">
-            <section class="border border-white/10 bg-white/30 h-full"><!-- Sidebar -->
-                <div class="h-[2.5%]">
-                    <input class="h-full" type="text" name="" id="listTitle" placeholder="Enter list Title">
+        <main class="flex h-full w-full">
+
+            <section class="border border-white/10 bg-white/30 w-1/2 h-full"><!-- Sidebar -->
+                <div class="h-[3.5%] w-full">
+                    <input class="h-full w-full p-2" type="text" name="" id="listTitle" placeholder="Enter list Title">
                 </div>
-                <div>
-                    <button class="w-full">List</button>
+                <div id="listTitleContainer">
+                    <button class="w-full h-12">List</button>
                 </div>
             </section>
 
-            <section class=""><!-- Main content -->
+            <section class="container flex"><!-- Main content -->
+                <ul class="w-full p-2" id="listItemsContainer">
+
+                    <li class="flex justify-between items-center">
+                        <section class="grow-2">
+                            <h4>List Title</h4>
+                            <input type="checkbox" name="" id="s3d">
+                            <label class="whitespace-normal inline" for="s3d">List Item</label>
+                        </section>
+                        <section class="flex flex-col gap-2">
+                        <i class="fa-regular fa-trash-can"></i>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        </section>
+                    </li>
+
+                </ul>
             </section>
         </main>
     </div>

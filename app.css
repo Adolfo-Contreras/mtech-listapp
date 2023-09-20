@@ -534,12 +534,54 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .collapse {
   visibility: collapse;
 }
 
 .m-0 {
   margin: 0px;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -566,8 +608,36 @@ video {
   height: 2.5%;
 }
 
+.h-\[3\.5\%\] {
+  height: 3.5%;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
 .w-full {
   width: 100%;
+}
+
+.w-2\/5 {
+  width: 40%;
+}
+
+.w-5\/12 {
+  width: 41.666667%;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.grow-2 {
+  flex-grow: 2;
 }
 
 .flex-col {
@@ -582,12 +652,24 @@ video {
   justify-content: flex-end;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .gap-8 {
   gap: 2rem;
 }
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.whitespace-normal {
+  white-space: normal;
 }
 
 .border {
@@ -604,6 +686,10 @@ video {
 
 .bg-white\/30 {
   background-color: rgb(255 255 255 / 0.3);
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .pr-2 {
