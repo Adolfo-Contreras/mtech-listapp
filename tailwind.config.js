@@ -9,6 +9,10 @@ module.exports = {
       flexGrow: {
         2:'2',
         3:'3'
+      },
+      transitionProperty: {
+        'height': 'height',
+        'spacing': 'margin, padding',
       }
     },
   },

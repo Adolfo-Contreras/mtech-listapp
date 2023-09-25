@@ -7,51 +7,65 @@
     <title>List</title>
     <script src="https://kit.fontawesome.com/5d38fb97c4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="app.css"> <!-- You can link your stylesheet here -->
+    <script defer src="index.js"></script>
 </head>
 <body class="w-full h-screen m-0">
     <div class="w-full h-full flex flex-col">
 
-        <header class="h-[5%] bg-black/80">
+        <header class="h-[5%] bg-black/80 sm:h-[7.5%]">
             <nav class="h-full">
-                <ul class="h-full pr-2 flex justify-end items-center gap-4">
+                <ul class="h-full pr-2 flex justify-end items-center gap-4 sm:pr-3">
                     <li class="">
                         <button><span class="fa-solid fa-circle-user text-xl text-white/60"></span></button>
                     </li>
-                    <li class=""><button><span class="fa-solid fa-gear text-xl text-white/60"></span></button></li>
+                    <li id="Settings"><button><span class="fa-solid fa-gear text-xl text-white/60"></span></button></li>
                 </ul>
             </nav>
-            <nav class="collapse"></nav>
+            <nav class="flex flex-col gap-4 collapse relative bottom-0 left-0 bg-black/70 transition-height ease-in duration-700 h-0" id="settingsMenu">
+                <ul class="text-white">
+                    <li class="my-4">change font size</li>
+                    <li class="my-4">change color</li>
+                </ul>
+            </nav>
         </header>
 
         <main class="flex h-full w-full">
 
-            <section class="border border-white/10 bg-white/30 w-1/2 h-full"><!-- Sidebar -->
-                <div class="h-[3.5%] w-full">
-                    <input class="h-full w-full p-2" type="text" name="" id="listTitle" placeholder="Enter list Title">
+            <section class="border border-white/10 bg-[#c9c9c9] w-1/2 h-full"><!-- Sidebar -->
+                <div class="h-[12%] w-full p-1 my-1 flex flex-col gap-1 sm:h-1/6"><!--List Creation-->
+                    <input class="h-1/2 w-full p-1 sm:p-2" type="text" name="" id="listTitle" placeholder="Enter list Title">
+                    <button class="h-1/2 bg-zinc-400 text-center p-1">Create List</button>
                 </div>
-                <div id="listTitleContainer">
-                    <button class="w-full h-12">List</button>
+                <div class="w-full" id="listTitleContainer"><!--List Container-->
+                    <button draggable="true" class="w-full h-fit py-1.5 break-words border border-red-800 sm:hover:bg-[#a3a3a3]">List</button>
+                    <button draggable="true" class="w-full h-fit py-1.5 break-words border border-red-800 sm:hover:bg-[#a3a3a3]">List</button>
+                    <button draggable="true" class="w-full h-fit py-1.5 break-words border border-red-800 sm:hover:bg-[#a3a3a3]">List</button>
                 </div>
             </section>
 
-            <section class="container flex"><!-- Main content -->
-                <ul class="w-full p-2" id="listItemsContainer">
+            <section class="container grow-2 flex flex-col p-2"><!-- Main content-->
+                <div class="bg-neutral-400 p-1.5"><!--List Item Creator-->
+                    <h1 class="break-words">Task</h1>
+                    <input class="w-full bg-neutral-400 placeholder-red-950 text-black" type="text" name="maketask" id="makeTask" placeholder="To Create A New Task Press Enter">
+                </div>
+                <ul class="w-full p-2 flex flex-col gap-2" id="listItemsContainer"><!--Container for List Items-->
 
-                    <li class="flex justify-between items-center">
+                    <li class="flex justify-between items-center p-1 rounded shadow-sm shadow-black hover:shadow-blue-300">
                         <section class="grow-2">
-                            <h4>List Title</h4>
+                            <h4 class="break-words">List Item</h4>
                             <input type="checkbox" name="" id="s3d">
-                            <label class="whitespace-normal inline" for="s3d">List Item</label>
+                            <label class="break-words" for="s3d">List Item Description</label>
                         </section>
-                        <section class="flex flex-col gap-2">
-                        <i class="fa-regular fa-trash-can"></i>
-                        <i class="fa-regular fa-pen-to-square"></i>
+                        <section class="flex flex-col gap-2 grow items-end">
+                        <button class="w-8"><span class="w-fit fa-regular fa-trash-can"></span></button>
+                        <button class="w-8"><span class="w-fit fa-regular fa-pen-to-square"></span></button>
                         </section>
                     </li>
-
+                    
                 </ul>
             </section>
         </main>
     </div>
 </body>
 </html>
+<!-- <div class="hidden h-96"></div> -->
