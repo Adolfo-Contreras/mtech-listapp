@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
-    <script src="https://kit.fontawesome.com/5d38fb97c4.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/5d38fb97c4.js" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="app.css"> <!-- You can link your stylesheet here -->
     <script defer src="index.js"></script>
 </head>
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
             </nav>
-            <nav class="flex flex-col gap-4 w-screen collapse relative bottom-0 left-0 bg-black/70 transition-height ease-in duration-700 h-0" id="settingsMenu">
+            <nav class="flex flex-col gap-4 w-screen transition-max-height collapse relative bottom-0 left-0 bg-black/70  ease-in max-h-0" id="settingsMenu">
                 <ul class="text-white">
                     <li class="my-4">change font size</li>
                     <li class="my-4">change color</li>
@@ -35,19 +35,20 @@
             </nav>
         </header>
 
-        <main class="flex h-screen w-full">
+        <main class="flex h-[95%] w-full">
 
-            <section class="container flex flex-col grow border border-white/10 bg-[#c9c9c9] w-1/2 p-1"><!-- Sidebar -->
+            <section class="container flex flex-col grow border border-white/10 bg-[#c9c9c9] w-1/2 p-1.5"><!-- Sidebar -->
                 <div class="h-[12%] w-full top-0 my-1 flex flex-col gap-1 sm:h-1/6"><!--List Creation-->
                     <input class="h-1/2 w-full p-1 sm:p-2" type="text" name="Title" id="listTitle" placeholder="Enter list Title">
-                    <button class="h-1/2 bg-zinc-400 text-center p-1 text-sm sm:text-base hover:bg-zinc-500">Create List</button>
+                    <button id="makelistbtn" class="h-1/2 bg-zinc-400 text-center p-1 text-sm sm:text-base hover:bg-zinc-500">Create List</button>
                 </div>
                 <div class="w-full h-full overflow-y-scroll" id="listTitleContainer"><!--List Container-->
                 </div>
             </section>
 
             <section class="container grow-2 flex flex-col p-2"><!-- Main content-->
-                <div class="container grow-2 flex flex-col p-2" id="todoContainer"></div>
+
+                <div class="container h-[90%] grow-2 flex flex-col p-2" id="todoContainer"></div>
 
                 <div class="w-full p-2 grow flex justify-center items-center">
                     <input class="makeTask" type="text" name="makeTask" placeholder="To Create A New Task, Press Enter">

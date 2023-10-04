@@ -16,6 +16,8 @@ module.exports = {
       'makeTask',
       'listBtn',
       'iconBtn',
+      'editIcon',
+      'deleteIcon',
     ]
   },
 },
@@ -29,6 +31,7 @@ module.exports = {
       transitionProperty: {
         'height': 'height',
         'spacing': 'margin, padding',
+        'max-height':'max-height',
       },
       scale: {
         '101': '1.01',
@@ -46,7 +49,7 @@ module.exports = {
           '@apply w-full p-2 overflow-y-auto': '',
         },
         '.listContainer': {
-          '@apply w-full p-2 flex grow-4 flex-col gap-2 overflow-y-auto justify-start': '',
+          '@apply w-full h-full p-2 flex flex-col gap-2 overflow-y-auto justify-start': '',
         },
         '.listTitle': {
           '@apply sticky top-0 z-10 bg-white': '',
@@ -55,7 +58,7 @@ module.exports = {
           '@apply flex justify-between items-center p-1 rounded shadow shadow-black hovGrow hover:scale-102 hover:shadow-blue-300 sm:hover:scale-101 md:p-2.5': '',
         },
         '.listTitleText': {
-          '@apply break-words h-fit  w-full text-4xl p-1 pb-2 border-b border-black mb-2 overflow-y-scroll sm:p-2 sm:pb-4 sm:text-5xl': '',
+          '@apply break-words h-fit text-center shadow-sm shadow-black w-full text-4xl p-1 pb-2 border-b border-black mb-2 overflow-y-scroll sm:p-2 sm:pb-4 sm:text-5xl': '',
         },
         '.makeTask': {
           '@apply w-full bg-neutral-400 placeholder-black text-black hovGrow rounded p-1': '',
@@ -67,8 +70,14 @@ module.exports = {
           '@aplly w-8 h-1/2 flex justify-center': '',
         },
         '.iconHolder':{
-          '@apply flex flex-col gap-2 grow items-end': '',
-        }
+          '@apply flex flex-col grow-2 gap-2 items-end': '',
+        },
+        '.editIcon':{
+          '@apply w-5 h-5 hover:fill-blue-400': '',
+        },
+        '.deleteIcon':{
+          '@apply w-5 h-5 hover:fill-rose-900': '',
+        },
       };
       addUtilities(newUtilities);
     },],
