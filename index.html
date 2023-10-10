@@ -27,7 +27,7 @@
                     </li>
                 </ul>
             </nav>
-            <nav class="flex flex-col gap-4 w-screen transition-max-height collapse relative bottom-0 left-0 bg-black/70  ease-in max-h-0" id="settingsMenu">
+            <nav class="flex flex-col gap-4 w-screen transition-height collapse relative bottom-0 left-0 bg-black/70 ease-in duration-1000 max-h-0" id="settingsMenu">
                 <ul class="text-white">
                     <li class="my-4">change font size</li>
                     <li class="my-4">change color</li>
@@ -51,7 +51,7 @@
                 <div class="container h-[90%] grow-2 flex flex-col p-2" id="todoContainer"></div>
 
                 <div class="w-full p-2 grow flex justify-center items-center">
-                    <input class="makeTask" type="text" name="makeTask" placeholder="To Create A New Task, Press Enter">
+                    <input class="makeTask" id="makeTask" type="text" name="makeTask" placeholder="To Create A New Task, Press Enter">
                 </div>
             </section>
         </main>

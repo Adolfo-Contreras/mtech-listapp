@@ -18,6 +18,9 @@ module.exports = {
       'iconBtn',
       'editIcon',
       'deleteIcon',
+      'h-0',
+      'h-fit',
+      'collapse',
     ]
   },
 },

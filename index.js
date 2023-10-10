@@ -1,7 +1,7 @@
 //use createElement and createTextNode and appendChild to add to list
 //remember to minify code
-// make sure to use a randomly generated id for each list
 //lazy loading techniques need to be used
+
 
 //dropdown menu
 let setting = document.getElementById('Settings');
@@ -9,139 +9,41 @@ let setting = document.getElementById('Settings');
 setting.addEventListener('click', ()=>{
     let settingMenu = document.getElementById('settingsMenu')
     settingMenu.classList.toggle('collapse')
-    if(settingMenu.classList.contains('max-h-0')){
+    if(settingMenu.classList.contains('h-0')){
         settingMenu.classList.add('h-fit')
         settingMenu.classList.remove('max-h-0')
     }else{
         settingMenu.classList.remove('h-fit')
-        settingMenu.classList.add('max-h-0')     
+        settingMenu.classList.add('h-0')     
     }
 });
 
 //list data structure
-let lists = {
-1:  {name: `shops`,
+let lists = [
+{   id:0,
+    name: `shops`,
     todos: [
         {
             text: 'need stuff',
             description:'why stuff',
-            completetd:false
+            completed:false
         },
-        {
-            text: 'need some stuff',
-            description:'why some stuff',
-            completetd:false
-        },
-        {
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        },{
-            text: 'need more stuff',
-            description:'why more stuff',
-            completetd:false
-        }
     ]
 },
-2:  {name: `shopping`,
-    todos: [
-        {
-            text: 'need stuff',
-            description:'why stuff2',
-            completetd:false
-        },
-        {
-            text: 'need some stuff',
-            description:'why some stuff2',
-            completetd:false
-        },
-        {
-            text: 'need more stuff',
-            description:'why more stuff2',
-            completetd:false
-        },
-        {
-            text: 'need more stuff',
-            description:'why more stuff2',
-            completetd:false
-        },
-        {
-            text: 'need more stuff',
-            description:'why more stuff2',
-            completetd:false
-        },
-        {
-            text: 'need more stuff',
-            description:'why more stuff2',
-            completetd:false
-        }
-    ]
-},
-3:  {
-    name: `shopsdf`,
-    todos:{}
-},4:  {
-    name: `shopsdf`,
-    todos:{}
-},5:  {
-    name: `shopsdf`,
-    todos:{}
-},6:  {
- name: `shopsdf`,
-    todos:{}
-},7:  {
-    name: `shopsdf`,
-    todos:{}
-},8:  {
-    name: `shopsdf`,
-    todos:{}
-},
-}
+]
 
-let currentList = lists[1]
+let currentList = lists[0]
 // console.log(lists[1].name) get name of list
 // console.log(lists[1].todos[0])gets you the actual list item
 // console.log(lists[1].todos[1].description) gets you the specific part of the list item
-// console.log(lists[2]) get list by name which in this case is '2' and does not go by index
-let currentListName = lists[1].name
+// console.log(lists[2]) get list by index
+console.log(lists[0].id)
+
+//render list
+let currentListName = lists[0].name
 console.log(currentListName)
 function render(){
+    //make list
     let listsHtml = '<ul class="listtitleContainer">';
     for (const key in lists) {
         if (lists.hasOwnProperty(key)) {
@@ -176,9 +78,55 @@ function render(){
     document.getElementById('todoContainer').innerHTML = todoHtml;
     })
 }
+//make new list object
+let listcount = 0;
+function makelistbutton(){
+    let listTitle = document.getElementById('listTitle').value;
+    let newListObj = {id:listcount,name: listTitle,todos: {}};
+    console.log(listTitle)
+    if(listTitle){
+        lists.push(newListObj)
+        render();
+        listcount++
+    }else{alert('Please enter a list title')}
+}
+document.getElementById('makelistbtn').addEventListener('click', function makelist(){
+    makelistbutton()
+});
+document.getElementById('listTitle').addEventListener('keydown', function makelist(e){
+    if(e.key === "Enter"){makelistbutton()}
+});
+//render current list
+const listTitleElements = document.getElementsByClassName('listTitle');
+for (let i = 0; i < listTitleElements.length; i++) {
+    listTitleElements[i].addEventListener('click', (e) => {
+        const clickedElement = e.target;
+        
+    });
+}
+//make todo
+document.getElementById('makeTask').addEventListener('keydown', function makeTodo(e){
+    if(e.key === "Enter"){
+        let todoVal = document.getElementById('makeTask').value;
+        console.log(`todo val: ${todoVal}`)
+        let todoObj = {text:todoVal,description:'',completed:false};
+        console.log(`todoobj: ${todoObj}`)
+        if(todoVal){
+            currentList.todos.push(todoObj);
+            console.log(`current list is: ${currentList}`) 
+        }else{alert('Please Enter text for the list item')}
+    }
+});
+//edit todo
 
-render()
+//delete todo
 
-document.getElementById('makelistbtn').addEventListener('click', function showCurrentList(e){
-    e.target
-})
+//completed todo
+
+//todo description
+
+//drag and drop
+
+//change colors
+
+//change font
