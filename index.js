@@ -97,16 +97,20 @@ document.getElementById('listTitle').addEventListener('keydown', function makeli
     if(e.key === "Enter"){makelistbutton()}
 });
 //render current list
-const listTitleElements = document.getElementsByClassName('listTitle');
+const listTitleElements = document.getElementsByClassName('listBtn');
 for (let i = 0; i < listTitleElements.length; i++) {
     listTitleElements[i].addEventListener('click', (e) => {
         const clickedElement = e.target;
         
+        const index = Array.from(listTitleElements).indexOf(clickedElement);
+        
+        console.log(`Index of clicked element: ${index}`);
     });
 }
 //make todo
 document.getElementById('makeTask').addEventListener('keydown', function makeTodo(e){
     if(e.key === "Enter"){
+        console.log(`current list is: ${currentList}`)
         let todoVal = document.getElementById('makeTask').value;
         console.log(`todo val: ${todoVal}`)
         let todoObj = {text:todoVal,description:'',completed:false};
@@ -115,6 +119,7 @@ document.getElementById('makeTask').addEventListener('keydown', function makeTod
             currentList.todos.push(todoObj);
             console.log(`current list is: ${currentList}`) 
         }else{alert('Please Enter text for the list item')}
+        render()
     }
 });
 //edit todo
