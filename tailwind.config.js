@@ -21,6 +21,7 @@ module.exports = {
       'h-0',
       'h-fit',
       'collapse',
+      'listTitletodo',
     ]
   },
 },
@@ -55,7 +56,7 @@ module.exports = {
           '@apply w-full h-full p-2 flex flex-col gap-2 overflow-y-auto justify-start': '',
         },
         '.listTitle': {
-          '@apply sticky top-0 z-10 bg-white': '',
+          '@apply sticky top-0 z-10 bg-white m-[1%] rounded-md': '',
         },
         '.todo': {
           '@apply flex justify-between items-center p-1 rounded shadow shadow-black hovGrow hover:scale-102 hover:shadow-blue-300 sm:hover:scale-101 md:p-2.5': '',
@@ -67,7 +68,7 @@ module.exports = {
           '@apply w-full bg-neutral-400 placeholder-black text-black hovGrow rounded p-1': '',
         },
         '.listBtn': {
-          '@apply w-full h-fit py-1.5 break-words border border-black/50 sm:hover:bg-[#a3a3a3]': '',
+          '@apply w-full h-fit py-1.5 break-words border border-black/50 sm:hover:bg-[#a3a3a3] rounded-md': '',
         },
         '.iconBtn':{
           '@aplly w-8 h-1/2 flex justify-center': '',
@@ -81,6 +82,9 @@ module.exports = {
         '.deleteIcon':{
           '@apply w-5 h-5 hover:fill-rose-900': '',
         },
+        '.listTitletodo':{
+          '@apply sticky top-0 z-10 bg-white': '',
+        }
       };
       addUtilities(newUtilities);
     },],
