@@ -48,7 +48,7 @@ function render(){
             <li class="todo" id="${currentListName}-${index}">
             <section>
                 <input type="checkbox" name="" id="${currentListName}-${index}txt">
-                <label class="break-words" for="${currentListName}-${index}txt">${list.text}</label>
+                <label class="break-words" id="${currentListName}-${index}todotxt" for="${currentListName}-${index}txt">${list.text}</label>
             </section>
             <section class="iconHolder">
                 <button class="iconBtn delete"onclick="deleteItem(${index})">
@@ -61,27 +61,25 @@ function render(){
         </li>`;
         document.getElementById('todoContainer').innerHTML = todoHtml;
     })}
-    //creating eventlisteners for the todos
-    let todoEvnt = Object.values(document.querySelectorAll('.todo'));
-    todoEvnt.forEach((value, index) => value.setAttribute('onclick', `editTodo(${index})`));
 }
 //unrender list
 function unrender(){
     let listButtonsHTML = document.getElementById('listTitleContainer');
     let todoItemsHTML = document.getElementById('todoContainer');
     if(((listButtonsHTML&&todoItemsHTML)||todoItemsHTML) === true){
-        listButtonsHTML = '';
-        todoItemsHTML = '';
+        listButtonsHTML.innerHTML = '';
+        todoItemsHTML.innerHTML = '';
     }
 }
 //make new list object
 let listcount = 0;
 function makelistbutton(){
-    let listTitle = document.getElementById('listTitle').value;
-    let newListObj = {name: listTitle,todos: []};
-    if(listTitle){
+    let listTitle = document.getElementById('listTitle');
+    let newListObj = {name: listTitle.value,todos: []};
+    if(listTitle.value){
         lists.push(newListObj)
         currentList = lists[1]
+        listTitle.value = '';
         render();
         listcount++
     }else{alert('Please enter a list title')}
@@ -116,11 +114,25 @@ document.getElementById('makeTodo').addEventListener('keydown', function makeTod
     }
 });
 //edit todo
-function editItem(){}
+function editItem(index){
+    //make the text editable
+    let oldName = document.querySelector(`#${currentList.name}-${index}todotxt`);
+    console.log(oldName)
+    let oldText = oldName.innerText
+    let inputTD = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`
+    oldName.innerHTML = inputTD
+    //get value and change it 
+    document.getElementById(`editingItem-${index}`).addEventListener('keypress',(e)=>{
+        if(e.key === 'Enter'){
+            let newText = document.getElementById(`editingItem-${index}`)
+            currentList.todos[index].text = newText.value
+            render()
+        }
+    })
+}
 //delete todo
 function deleteItem(index) {
     console.log(currentList)
-    console.log(currentListItems)
     currentList.todos.splice(index, 1)
     render()
 }
