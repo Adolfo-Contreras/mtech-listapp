@@ -44,6 +44,8 @@ function render(){
     if(currentList.todos.length>0){
         let todoHtml = `<ul class="listContainer"><li class="listTitletodo"><h1 class="listTitleText">${currentListName}</h1></li>`;
         currentList.todos.forEach((list,index) =>{
+            if(currentListName.indexOf(' ') > -1){var underscored = currentListName.replace(' ','-');currentListName = underscored;console.log('underscores worked')}
+            console.log(currentListName)
             todoHtml += `
             <li class="todo" id="${currentListName}-${index}">
             <section>
@@ -116,11 +118,21 @@ document.getElementById('makeTodo').addEventListener('keydown', function makeTod
 //edit todo
 function editItem(index){
     //make the text editable
-    let oldName = document.querySelector(`#${currentList.name}-${index}todotxt`);
+    console.log(currentList.name)
+    if(currentList.name.indexOf(' ') === false){
+        let oldName = document.querySelector(`#${currentList.name}-${index}todotxt`);
     console.log(oldName)
-    let oldText = oldName.innerText
-    let inputTD = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`
-    oldName.innerHTML = inputTD
+        let oldText = oldName.innerText
+        let inputTD = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`
+        oldName.innerHTML = inputTD
+    }else{
+        let underscored = currentList.name.replace(' ','-')
+        let old_Name = document.querySelector(`#${underscored}-${index}todotxt`);
+    console.log(old_Name)
+        let old_Text = old_Name.innerText
+        let edit_Input = `<input type="text" placeholder="${old_Text}" id="editingItem-${index}">`
+        old_Name.innerHTML = edit_Input
+    }
     //get value and change it 
     document.getElementById(`editingItem-${index}`).addEventListener('keypress',(e)=>{
         if(e.key === 'Enter'){
