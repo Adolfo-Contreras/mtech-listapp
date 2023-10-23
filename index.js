@@ -11,12 +11,11 @@ setting.addEventListener('click', ()=>{
     }
 });
 //list data structure
-let lists = [{
-    name: 'example',
+let lists = JSON.parse(localStorage.getItem('lists')) ?? [{
+    name: 'Edit this List or Create a New One!',
     todos: []
-},]
-
-let currentList = lists[0]
+},];
+let currentList = JSON.parse(localStorage.getItem('currentList')) ?? lists[0];
 //render list
 function render(){
     //make list
@@ -44,7 +43,14 @@ function render(){
     if(currentList.todos.length>0){
         let todoHtml = `<ul class="listContainer"><li class="listTitletodo"><h1 class="listTitleText">${currentListName}</h1></li>`;
         currentList.todos.forEach((list,index) =>{
-            if(currentListName.indexOf(' ') > -1){var underscored = currentListName.replace(' ','-');currentListName = underscored;console.log('underscores worked')}
+            console.log(currentListName)
+            Array.from(currentListName).forEach((char)=>{
+                if(char === ' '){
+                    let underscored = char.replace(' ', '-');
+                    char = underscored;
+                }
+                console.log(`underscores worked:  ${currentListName}`)
+            })
             console.log(currentListName)
             todoHtml += `
             <li class="todo" id="${currentListName}-${index}">
@@ -64,6 +70,7 @@ function render(){
         document.getElementById('todoContainer').innerHTML = todoHtml;
     })}
 }
+render()
 //unrender list
 function unrender(){
     let listButtonsHTML = document.getElementById('listTitleContainer');
@@ -87,8 +94,14 @@ function makelistbutton(){
     }else{alert('Please enter a list title')}
 }
     //eventlisteners to make the list object
-document.getElementById('makelistbtn').addEventListener('click', function makelist(){makelistbutton()});
-document.getElementById('listTitle').addEventListener('keydown', function makelist(e){ if(e.key === "Enter"){makelistbutton()}});
+document.getElementById('makelistbtn').addEventListener('click', function makelist(){
+    makelistbutton();
+    save(lists,currentList);
+});
+document.getElementById('listTitle').addEventListener('keydown', function makelist(e){ if(e.key === "Enter"){
+    makelistbutton();
+    save(lists,currentList);
+}});
 
 //render current list
 function switchList(index){
@@ -99,60 +112,70 @@ function switchList(index){
 //make todo
 document.getElementById('makeTodo').addEventListener('keydown', function makeTodo(e){
     if(e.key === "Enter"){
-        // console.log(`current list is: ${currentList}`)
+        // console.log(`current list is: ${currentList}`);
         let todoVal = document.getElementById('makeTodo');
         // console.log(`todo val: ${todoVal}`);
-        let todoObj = {text:todoVal.value,completed:false};
+        let todoObj = {text: todoVal.value, completed: false};
         // console.log(`todoobj: ${todoObj}`);
-        let checkForListTitle = document.getElementById('listTitleContainer')
-        let listBtn = document.getElementById('list0')
+        let checkForListTitle = document.getElementById('listTitleContainer');
+        let listBtn = document.getElementById('list0');
         if(checkForListTitle.contains(listBtn)){
             if(todoVal.value){
                 currentList.todos.push(todoObj);
                 todoVal.value = '';
                 render();
-            }else{alert('Please Enter text for the list item');}
-        }else{alert('List has not been made');}
+                save(lists,currentList)
+            } else {
+                alert('Please Enter text for the list item');
+            }
+        } else {
+            alert('List has not been made');
+        }
     }
 });
 //edit todo
 function editItem(index){
     //make the text editable
-    console.log(currentList.name)
+    console.log(currentList.name);
     if(currentList.name.indexOf(' ') === false){
         let oldName = document.querySelector(`#${currentList.name}-${index}todotxt`);
-    console.log(oldName)
-        let oldText = oldName.innerText
-        let inputTD = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`
-        oldName.innerHTML = inputTD
+    console.log(oldName);
+        let oldText = oldName.innerText;
+        let editInput = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`;
+        oldName.innerHTML = editInput;
     }else{
-        let underscored = currentList.name.replace(' ','-')
-        let old_Name = document.querySelector(`#${underscored}-${index}todotxt`);
-    console.log(old_Name)
-        let old_Text = old_Name.innerText
-        let edit_Input = `<input type="text" placeholder="${old_Text}" id="editingItem-${index}">`
-        old_Name.innerHTML = edit_Input
+        let underscoredid = currentList.name.replace(' ','-');
+        let old_Name = document.querySelector(`#${underscoredid}-${index}todotxt`);
+        console.log(old_Name);
+        let old_Text = old_Name.innerText;
+        let edit_Input = `<input type="text" placeholder="${old_Text}" id="editingItem-${index}">`;
+        old_Name.innerHTML = edit_Input;
     }
     //get value and change it 
     document.getElementById(`editingItem-${index}`).addEventListener('keypress',(e)=>{
         if(e.key === 'Enter'){
-            let newText = document.getElementById(`editingItem-${index}`)
-            currentList.todos[index].text = newText.value
-            render()
+            let newText = document.getElementById(`editingItem-${index}`);
+            currentList.todos[index].text = newText.value;
+            render();
+            save(lists,currentList);
         }
     })
 }
 //delete todo
 function deleteItem(index) {
-    console.log(currentList)
     currentList.todos.splice(index, 1)
     render()
+    save(lists,currentList);
 }
 //completed todo
 function completedItem(){}
 //clear completed
 function clearCompleted(){}
-//
+//save
+    function save(list, currList) {
+        localStorage.setItem('lists', JSON.stringify(lists));
+        localStorage.setItem('currentList', JSON.stringify(currentList));
+    }
 //drag and drop
 
 //change colors
