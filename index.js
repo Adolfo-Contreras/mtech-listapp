@@ -12,7 +12,7 @@ setting.addEventListener('click', ()=>{
 });
 //list data structure
 let lists = JSON.parse(localStorage.getItem('lists')) ?? [{
-    name: 'Edit this List or Create a New One!',
+    name: 'Double Click Me or Create a New List!',
     todos: []
 },];
 let currentList = JSON.parse(localStorage.getItem('currentList')) ?? lists[0];
@@ -46,11 +46,11 @@ function render(){
             console.log(currentListName)
             Array.from(currentListName).forEach((char)=>{
                 if(char === ' '){
-                    let underscored = char.replace(' ', '-');
-                    char = underscored;
+                    char = '-';
                 }
-                console.log(`underscores worked:  ${currentListName}`)
-            })
+                console.log(`underscores worked:  ${currentListName}`);
+                console.log(char)
+            });
             console.log(currentListName)
             todoHtml += `
             <li class="todo" id="${currentListName}-${index}">
@@ -168,9 +168,15 @@ function deleteItem(index) {
     save(lists,currentList);
 }
 //completed todo
-function completedItem(){}
+function completedItem(){
+    render()
+    save(lists,currentList);
+}
 //clear completed
-function clearCompleted(){}
+function clearCompleted(){
+    render()
+    save(lists,currentList);
+}
 //save
     function save(list, currList) {
         localStorage.setItem('lists', JSON.stringify(lists));
