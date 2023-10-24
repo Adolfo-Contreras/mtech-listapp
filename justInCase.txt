@@ -18,3 +18,5 @@
         </li>
     </ul>
 //what the thing should look like that holds the todo
+
+//this is gonna be a backup for the JS as unminified code

@@ -12,51 +12,45 @@ setting.addEventListener('click', ()=>{
 });
 //list data structure
 let lists = JSON.parse(localStorage.getItem('lists')) ?? [{
-    name: 'Double Click Me or Create a New List!',
+    name: 'Double Click Me or Create a New List',
     todos: []
 },];
 let currentList = JSON.parse(localStorage.getItem('currentList')) ?? lists[0];
 //render list
 function render(){
     //make list
-   if(lists.length>0){ 
     let listids = 0
+   if(lists.length>0){ 
     let listsHtml = '<ul class="listtitleContainer">';
     for (const key in lists) {
         if (lists.hasOwnProperty(key)) {
             const list = lists[key];
-            listsHtml += `<li draggable="true" class="listTitle hovGrow" id="list${listids}"><button class="listBtn">${list.name}</button></li>`;
+            listsHtml += `<li draggable="true" class="listTitle hovGrow" id="list${listids}" ondblclick="editListName(${listids})"><button id="listText${listids}" class="listBtn">${list.name}</button></li>`;
+        console.log(`this is list var--> ${list}`)
         }
         listids++
     }
     listsHtml += '</ul>';
-    document.getElementById('listTitleContainer').innerHTML = listsHtml;}
+    document.getElementById('listTitleContainer').innerHTML = listsHtml;};
 
     //creating eventlisteners for the lists
     let liVals = Object.values(document.querySelectorAll('.listTitle'));
     liVals.forEach((value, index) => value.setAttribute('onclick', `switchList(${index})`));
     //make title
+    
     let currentListName = currentList.name;
-    let listTitleHTML =`<div class ="listContainer"><div class="listTitletodo"><h1 class="listTitleText">${currentListName}</h1></div></div>` 
-    document.getElementById('todoContainer').innerHTML = listTitleHTML
+    let listTitleHTML =`<div class ="listContainer"><div class="listTitletodo"><h1 ondblclick="editListName(${listids})" class="listTitleText" id="listname${listids}">${currentListName}</h1></div></div>`;
+    document.getElementById('todoContainer').innerHTML = listTitleHTML;
     //make todo    
     if(currentList.todos.length>0){
         let todoHtml = `<ul class="listContainer"><li class="listTitletodo"><h1 class="listTitleText">${currentListName}</h1></li>`;
         currentList.todos.forEach((list,index) =>{
-            console.log(currentListName)
-            Array.from(currentListName).forEach((char)=>{
-                if(char === ' '){
-                    char = '-';
-                }
-                console.log(`underscores worked:  ${currentListName}`);
-                console.log(char)
-            });
-            console.log(currentListName)
+            if(currentListName.indexOf(' ') > -1){let underscored = currentListName.replace(/\s+/g, '-');currentListName = underscored;};
             todoHtml += `
             <li class="todo" id="${currentListName}-${index}">
             <section>
-                <input type="checkbox" name="" id="${currentListName}-${index}txt">
-                <label class="break-words" id="${currentListName}-${index}todotxt" for="${currentListName}-${index}txt">${list.text}</label>
+                <input onclick="completedItem(${index})" type="checkbox" name="" id="${currentListName}-${index}txt">
+                <label onclick="completedItem(${index})" class="break-words" id="${currentListName}-${index}todotxt" for="${currentListName}-${index}txt">${list.text}</label>
             </section>
             <section class="iconHolder">
                 <button class="iconBtn delete"onclick="deleteItem(${index})">
@@ -86,12 +80,12 @@ function makelistbutton(){
     let listTitle = document.getElementById('listTitle');
     let newListObj = {name: listTitle.value,todos: []};
     if(listTitle.value){
-        lists.push(newListObj)
-        currentList = lists[1]
+        lists.push(newListObj);
+        currentList = lists[1];
         listTitle.value = '';
         render();
-        listcount++
-    }else{alert('Please enter a list title')}
+        listcount++;
+    }else{alert('Please enter a list title')};
 }
     //eventlisteners to make the list object
 document.getElementById('makelistbtn').addEventListener('click', function makelist(){
@@ -108,7 +102,7 @@ function switchList(index){
    currentList = lists[index];
    console.log(currentList);
     render();
-}
+};
 //make todo
 document.getElementById('makeTodo').addEventListener('keydown', function makeTodo(e){
     if(e.key === "Enter"){
@@ -139,14 +133,12 @@ function editItem(index){
     console.log(currentList.name);
     if(currentList.name.indexOf(' ') === false){
         let oldName = document.querySelector(`#${currentList.name}-${index}todotxt`);
-    console.log(oldName);
         let oldText = oldName.innerText;
         let editInput = `<input type="text" placeholder="${oldText}" id="editingItem-${index}">`;
         oldName.innerHTML = editInput;
     }else{
-        let underscoredid = currentList.name.replace(' ','-');
+        let underscoredid = currentList.name.replace(/\s+/g, '-');
         let old_Name = document.querySelector(`#${underscoredid}-${index}todotxt`);
-        console.log(old_Name);
         let old_Text = old_Name.innerText;
         let edit_Input = `<input type="text" placeholder="${old_Text}" id="editingItem-${index}">`;
         old_Name.innerHTML = edit_Input;
@@ -177,6 +169,21 @@ function clearCompleted(){
     render()
     save(lists,currentList);
 }
+//edit list name
+function editListName(listid){
+    let oldlistName = document.querySelector(`#listname${listid}`);
+    let oldText = oldlistName.innerText;
+    let editInput = `<input type="text" placeholder="${oldText}" id="editingListName-${listid}">`;
+    oldlistName.innerHTML = editInput;
+
+    document.getElementById(`editingListName-${listid}`).addEventListener('keypress',(e)=>{
+        if(e.key === 'Enter'){
+            let newText = document.getElementById(`editingListName-${listid}`);
+            currentList.name = newText.value;
+            render();
+            save(lists,currentList);}
+        })
+    }
 //save
     function save(list, currList) {
         localStorage.setItem('lists', JSON.stringify(lists));
