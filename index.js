@@ -50,7 +50,7 @@ function render(){
             <li class="todo" id="${currentListName}-${index}">
             <section>
                 <input onclick="completedItem(${index})" type="checkbox" name="" id="${currentListName}-${index}txt">
-                <label onclick="completedItem(${index})" class="break-words" id="${currentListName}-${index}todotxt" for="${currentListName}-${index}txt">${list.text}</label>
+                <label" class="break-words" id="${currentListName}-${index}todotxt" for="${currentListName}-${index}txt">${list.text}</label>
             </section>
             <section class="iconHolder">
                 <button class="iconBtn delete"onclick="deleteItem(${index})">
@@ -109,7 +109,7 @@ document.getElementById('makeTodo').addEventListener('keydown', function makeTod
         // console.log(`current list is: ${currentList}`);
         let todoVal = document.getElementById('makeTodo');
         // console.log(`todo val: ${todoVal}`);
-        let todoObj = {text: todoVal.value, completed: false};
+        let todoObj = {text: todoVal.value, incomplete: true};
         // console.log(`todoobj: ${todoObj}`);
         let checkForListTitle = document.getElementById('listTitleContainer');
         let listBtn = document.getElementById('list0');
@@ -160,9 +160,26 @@ function deleteItem(index) {
     save(lists,currentList);
 }
 //completed todo
-function completedItem(){
-    render()
+function completedItem(index){
+    let underscoredId = currentList.name.replace(/\s+/g, '-');
+    let checkbox = document.querySelector(`#${currentList.name}-${index}txt`) ?? document.querySelector(`#${underscoredId}-${index}txt`) ; 
+    checkbox.addEventListener('change',()=>{
+        if(checkbox.checked){
+            console.log('check true');
+            currentList.todos[index].incomplete = true;
+        }else{
+            currentList.todos[index].incomplete = false;
+            console.log('check false');
+        }
+    })
     save(lists,currentList);
+}
+
+//delete List
+function deleteList(){
+    document.getElementById('DELETEON').classList.toggle('collapse')
+
+
 }
 //clear completed
 function clearCompleted(){
@@ -189,8 +206,6 @@ function editListName(listid){
         localStorage.setItem('lists', JSON.stringify(lists));
         localStorage.setItem('currentList', JSON.stringify(currentList));
     }
-//drag and drop
-
 //change colors
 
 //change font

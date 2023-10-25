@@ -22,6 +22,7 @@ module.exports = {
       'h-fit',
       'collapse',
       'listTitletodo',
+      'DELETINGlistBtn',
     ]
   },
 },
@@ -69,6 +70,9 @@ module.exports = {
         },
         '.listBtn': {
           '@apply w-full h-fit py-1.5 break-words border border-black/50 sm:hover:bg-[#a3a3a3] rounded-md': '',
+        },
+        '.DELETINGlistBtn': {
+          '@apply w-full h-fit py-1.5 break-words border border-black/50 sm:hover:bg-[#c51111] sm:hover:text-white rounded-md': '',
         },
         '.iconBtn':{
           '@aplly w-8 h-1/2 flex justify-center': '',
