@@ -14,9 +14,15 @@
         <header class="h-[6%] w-full bg-black/80 backdrop-blur-lg sm:h-[7.5%] md:h-[8.5%] z-20">
             <nav class="h-full w-full flex justify-between items-center px-[2%]">
                 
-                <div class="flex items-center gap-2">
-                <button class="bg-white/75 w-30 h-6 rounded text-xs p-0.5" onclick="deleteList()">Toggle Delete List</button>
-                <h1 id="DELETEON" class="collapse bg-[#c51111] text-white text-xs font-bold rounded p-1">DELETE ON</h1>
+                <div class="flex gap-0">
+                    <div class="flex items-center gap-2">
+                    <button class="bg-white/75 w-30 h-6 rounded text-xs p-0.5" onclick="deleteOn()">Toggle Delete List</button>
+                    <h1 id="DELETEON" class="collapse bg-[#c51111] text-white text-xs font-bold rounded p-1">DELETE ON</h1>
+                    </div>
+
+                    <div class="flex items-center">
+                        <button id="clearTodo" class="bg-white/75 w-30 h-6 rounded text-xs p-0.5">Clear Completed Items</button>
+                    </div>
                 </div>
                 
                 <ul class="h-full pr-2 flex justify-end items-center gap-4 sm:pr-3">

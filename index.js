@@ -163,29 +163,79 @@ function deleteItem(index) {
 function completedItem(index){
     let underscoredId = currentList.name.replace(/\s+/g, '-');
     let checkbox = document.querySelector(`#${currentList.name}-${index}txt`) ?? document.querySelector(`#${underscoredId}-${index}txt`) ; 
-    checkbox.addEventListener('change',()=>{
+    checkbox.addEventListener('click',()=>{
+        console.log(index)
         if(checkbox.checked){
             console.log('check true');
-            currentList.todos[index].incomplete = true;
-        }else{
+            console.log(index)
             currentList.todos[index].incomplete = false;
+        }else{
+            currentList.todos[index].incomplete = true;
             console.log('check false');
+            console.log(index)
         }
     })
     save(lists,currentList);
 }
 
 //delete List
-function deleteList(){
-    document.getElementById('DELETEON').classList.toggle('collapse')
-
-
-}
+    //change class
+    function changeclass(){
+        for(let i=0;i<lists.length;i++){
+            let listsclass = document.getElementById(`listText${i}`);
+            if(ToggledOn === false){
+                listsclass.classList.add('listBtn');
+                listsclass.classList.remove('DELETINGlistBtn');
+            }else{
+                listsclass.classList.remove('listBtn');
+                listsclass.classList.add('DELETINGlistBtn');
+            }
+        }
+    }
+    //make the lists deletable
+    let ToggledOn = true
+    function deleteOn(){    
+        //Make deletion toggle known
+        document.getElementById('DELETEON').classList.toggle('collapse');
+        changeclass()
+        //add function to be able to delete list
+        if(ToggledOn === true){
+        let liVals = Object.values(document.querySelectorAll('.listTitle'));
+        liVals.forEach((value, index) => value.setAttribute('onclick', `DeleteList(${index})`));
+        ToggledOn = false;
+        console.log(`idk ${ToggledOn}`);}
+        else if(ToggledOn === false){
+            console.log(`idk ${ToggledOn} asdf`);
+            let liVals = Object.values(document.querySelectorAll('.listTitle'));
+            liVals.forEach((value, index) => value.setAttribute('onclick', `switchList(${index})`));
+            ToggledOn = true;
+        }
+    }
+    //actually delete the lists
+    function DeleteList(index){
+    lists.splice(index, 1);
+    currentList.todos = [];
+    currentList.name = '';
+    render();
+    changeclass()
+    let liVals = Object.values(document.querySelectorAll('.listTitle'));
+    liVals.forEach((value, index) => value.setAttribute('onclick', `DeleteList(${index})`));
+    save(lists,currentList);
+    }
 //clear completed
 function clearCompleted(){
+    for(let i=0;i<currentList.todos.length;i++){
+        let checkcomplete = currentList.todo[i].incomplete;
+        if(checkcomplete === false){
+            currentList.todo[i].splice(index, 1);
+        }
+    }
     render()
     save(lists,currentList);
 }
+document.getElementById('clearTodo').addEventListener('click',()=>{
+    clearCompleted()
+});
 //edit list name
 function editListName(listid){
     let oldlistName = document.querySelector(`#listname${listid}`);
@@ -206,6 +256,3 @@ function editListName(listid){
         localStorage.setItem('lists', JSON.stringify(lists));
         localStorage.setItem('currentList', JSON.stringify(currentList));
     }
-//change colors
-
-//change font
