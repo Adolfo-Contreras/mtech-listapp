@@ -66,14 +66,14 @@ function render(){
 }
 render()
 //unrender list
-function unrender(){
-    let listButtonsHTML = document.getElementById('listTitleContainer');
-    let todoItemsHTML = document.getElementById('todoContainer');
-    if(((listButtonsHTML&&todoItemsHTML)||todoItemsHTML) === true){
-        listButtonsHTML.innerHTML = '';
-        todoItemsHTML.innerHTML = '';
-    }
-}
+// function unrender(){
+//     let listButtonsHTML = document.getElementById('listTitleContainer');
+//     let todoItemsHTML = document.getElementById('todoContainer');
+//     if(((listButtonsHTML&&todoItemsHTML)||todoItemsHTML) === true){
+//         listButtonsHTML.innerHTML = '';
+//         todoItemsHTML.innerHTML = '';
+//     }
+// }
 //make new list object
 let listcount = 0;
 function makelistbutton(){
@@ -109,7 +109,7 @@ document.getElementById('makeTodo').addEventListener('keydown', function makeTod
         // console.log(`current list is: ${currentList}`);
         let todoVal = document.getElementById('makeTodo');
         // console.log(`todo val: ${todoVal}`);
-        let todoObj = {text: todoVal.value, incomplete: true};
+        let todoObj = {text: todoVal.value, complete: false};
         // console.log(`todoobj: ${todoObj}`);
         let checkForListTitle = document.getElementById('listTitleContainer');
         let listBtn = document.getElementById('list0');
@@ -117,6 +117,7 @@ document.getElementById('makeTodo').addEventListener('keydown', function makeTod
             if(todoVal.value){
                 currentList.todos.push(todoObj);
                 todoVal.value = '';
+                console.log(currentList)
                 render();
                 save(lists,currentList)
             } else {
@@ -161,20 +162,16 @@ function deleteItem(index) {
 }
 //completed todo
 function completedItem(index){
+    // let ifChecked = checkbox.checked ?? true 
     let underscoredId = currentList.name.replace(/\s+/g, '-');
     let checkbox = document.querySelector(`#${currentList.name}-${index}txt`) ?? document.querySelector(`#${underscoredId}-${index}txt`) ; 
-    checkbox.addEventListener('click',()=>{
-        console.log(index)
-        if(checkbox.checked){
-            console.log('check true');
-            console.log(index)
-            currentList.todos[index].incomplete = false;
-        }else{
-            currentList.todos[index].incomplete = true;
-            console.log('check false');
-            console.log(index)
+        if(checkbox.checked == true){
+            currentList.todos[index].complete = true;
+        }else if(checkbox.checked == false){
+            currentList.todos[index].complete = false;
         }
-    })
+        console.log('check ' + (checkbox.checked ? 'true' : 'false'));
+        console.log(index);
     save(lists,currentList);
 }
 
@@ -225,9 +222,10 @@ function completedItem(index){
 //clear completed
 function clearCompleted(){
     for(let i=0;i<currentList.todos.length;i++){
-        let checkcomplete = currentList.todo[i].incomplete;
-        if(checkcomplete === false){
-            currentList.todo[i].splice(index, 1);
+        console.log(currentList.todos[i])
+        let checkcomplete = currentList.todos[i].complete;
+        if(checkcomplete === true){
+            deleteItem(i);
         }
     }
     render()
